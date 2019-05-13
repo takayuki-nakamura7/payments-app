@@ -3,7 +3,7 @@ services:
   web:
     image: nginx:1.15.6
     ports:
-    - "8000:80"
+    - "8001:80"
     depends_on:
     - app
     volumes:
@@ -23,7 +23,7 @@ services:
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: secret
     ports:
-    - "3309:3306"
+    - "3306:3306"
     volumes:
     - mysql-data:/var/lib/mysql
   composer:

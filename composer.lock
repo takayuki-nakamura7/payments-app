@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94d4bf9ac7f4a933030e46a346ee2917",
+    "content-hash": "c01d3a271677ee8990c5fce6158dc8f7",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2815,16 +2815,16 @@
         },
         {
             "name": "fzaninotto/faker",
-            "version": "v1.8.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de"
+                "reference": "fb218ada627f7c750c6e0e41cae486d2db48e911"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/f72816b43e74063c8b10357394b6bba8cb1c10de",
-                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/fb218ada627f7c750c6e0e41cae486d2db48e911",
+                "reference": "fb218ada627f7c750c6e0e41cae486d2db48e911",
                 "shasum": ""
             },
             "require": {
@@ -2838,7 +2838,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.9-dev"
                 }
             },
             "autoload": {
@@ -2861,7 +2861,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2018-07-12T10:23:15+00:00"
+            "time": "2019-04-16T09:48:34+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -4401,7 +4401,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "fzaninotto/faker": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
