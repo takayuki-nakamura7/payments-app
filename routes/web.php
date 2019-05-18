@@ -15,14 +15,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', 'HomeController@getMemberList')->name('test');
+
 
 Auth::routes();
+
+
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/home', 'ShopController@index')->name('home');
 
 
+
+Route::get('/test',function () {
+    return view('test');
+});
+
+Route::post('/test-form', 'HomeController@write1')->name('postTest');
+
+
+
+
 Route::get('/home/{id}', 'ShopController@show')->name('test');
 
+Auth::routes();
 
-
+Route::get('/home', 'HomeController@index')->name('home');

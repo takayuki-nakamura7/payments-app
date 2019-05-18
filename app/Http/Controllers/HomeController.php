@@ -1,53 +1,43 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Payment;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-
-
-
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @return View
      */
+
+    public function write1(Request $request)
+    {
+        $data = collect(['a', 'b', 'c']);
+
+        $result = $data->map(function ($item) {
+            return 'prefix_' . $item;
+        });
+
+        dd($result->toJson());
+
+        return view('test2', $request->all());
+    }
+
     public function __construct()
     {
         $this->middleware('auth');
     }
+
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-
-
-
-    public function index(Request $request)
+    public function index()
     {
-
-    }
-    /**
-     * 特定のIDの支払い情報を表示する
-     *
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function show($id)
-    {
-
-    }
-    /**
-     * 特定のIDの支払い情報を削除する
-     *
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
+        return view('home');
     }
 }
