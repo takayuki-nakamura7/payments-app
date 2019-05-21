@@ -20,23 +20,26 @@ Route::get('/', function () {
 Auth::routes();
 
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/home', 'ShopController@index')->name('home');
-
-
-
-Route::get('/test',function () {
-    return view('test');
-});
-
-Route::post('/test-form', 'HomeController@write1')->name('postTest');
+Route::get('/home', 'HomeController@index')->name('test');
+//Route::get('/home/{id}', 'HomeController@show')->name('detail');
+//Route::delete('/home/{id}', 'HomeController@destroy')->name('delete');
 
 
 
 
-Route::get('/home/{id}', 'ShopController@show')->name('test');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+
+
+
+
+
+
+
+
+
+

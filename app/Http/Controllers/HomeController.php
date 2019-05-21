@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -13,19 +14,6 @@ class HomeController extends Controller
      * @return View
      */
 
-    public function write1(Request $request)
-    {
-        $data = collect(['a', 'b', 'c']);
-
-        $result = $data->map(function ($item) {
-            return 'prefix_' . $item;
-        });
-
-        dd($result->toJson());
-
-        return view('test2', $request->all());
-    }
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -36,8 +24,21 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
-    }
+        public function index(Request $request)
+        {
+            $payments = Payment::query();
+
+            // 名前でフィルタリング
+            $name = $request->get('customer');
+            if (!is_null($name)) {
+                $payments->where('customer', 'like', "%{$name}%");
+            }
+
+
+
+            // 今回のリクエストデータをセッションに保存
+//            $request->flash();
+
+            return view('test')->with('payments', $payments->get());
+        }
 }
