@@ -8,9 +8,24 @@
                     <div class="card-header">フィルター</div>
                     <div class="card-body">
                         <form action="{{ route('test') }}" method="get">
-                            <div class="form-group mb-3">
-                                <label for="customerInput">名前</label>
-                                <input type="text" class="form-control" id="customerInput" name="customer" value="{{ old('customer') }}">
+                            <div class="form-group">
+                                <label>名前</label>
+                                <input type="text" name="customer">
+                            </div>
+                            <div class="form-group">
+                                <label>伝票番号</label>
+                                <input type="text" name="order_no">
+                            </div>
+                            <div class="form-group">
+                                <label>金額</label>
+                                <input type="number" name="price" placeholder="0">
+                                <select name="price_operator">
+                                    <option value="=">と等しい</option>
+                                    <option value=">">より上</option>
+                                    <option value="<">より下</option>
+                                    <option value=">=">以上</option>
+                                    <option value="<=">以下</option>
+                                </select>
                             </div>
                             <button class="btn btn-primary">検索</button>
                         </form>

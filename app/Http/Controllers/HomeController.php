@@ -35,10 +35,28 @@ class HomeController extends Controller
             }
 
 
+            $order_no = $request->get('order_no');
+            if (!is_null($order_no)) {
+                $payments->where('order_no', 'like', "{$order_no}%");
+            }
+
+            $price = $request->get('price');
+            $price_operator = $request->get('price_operator');
+            if (!is_null($price)) {
+                $payments->where('price', $price_operator, $price);
+            }
+
 
             // 今回のリクエストデータをセッションに保存
-//            $request->flash();
+            $request->flash();
 
             return view('test')->with('payments', $payments->get());
+        }
+
+        public function show($id)
+        {
+            $payment = Payment::find($id);
+            return view('bill',compact('payment'));
+
         }
 }
