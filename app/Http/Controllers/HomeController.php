@@ -59,4 +59,17 @@ class HomeController extends Controller
             return view('bill',compact('payment'));
 
         }
+
+        public function destroy($id)
+        {
+            $payment = Payment::find($id);
+            dump($payment);
+            $order_no = $payment->order_no;
+            $payment->delete();
+
+            \Session::flash('test', $order_no . 'を削除しましたよ！！');
+
+            return redirect('/test');
+        }
+
 }

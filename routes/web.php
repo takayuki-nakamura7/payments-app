@@ -24,7 +24,7 @@ Route::get('home', function () {
 });
 Route::get('/test', 'HomeController@index')->name('test');
 Route::get('/home/{id}', 'HomeController@show')->name('bill');
-//Route::delete('/home/{id}', 'HomeController@destroy')->name('delete');
+Route::delete('/home/{id}', 'HomeController@destroy')->name('delete');
 
 
 
