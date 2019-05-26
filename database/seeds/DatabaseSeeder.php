@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'ktkr3335@yahoo.co.jp',
         ]);
 
+
         foreach ($shops as $shop) {
             foreach ($users as $user) {
                 factory(\App\Payment::class)->create([

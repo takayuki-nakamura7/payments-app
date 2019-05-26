@@ -46,6 +46,12 @@ class HomeController extends Controller
                 $payments->where('price', $price_operator, $price);
             }
 
+            $self_issued_payments = $request->get('self_issued_payments');
+            if (intval($self_issued_payments) === 1) {
+                $payments->where('user_id', \Auth::user()->id);
+                dump(\Auth::user()->id);
+            }
+
 
             // 今回のリクエストデータをセッションに保存
             $request->flash();
@@ -63,7 +69,6 @@ class HomeController extends Controller
         public function destroy($id)
         {
             $payment = Payment::find($id);
-            dump($payment);
             $order_no = $payment->order_no;
             $payment->delete();
 

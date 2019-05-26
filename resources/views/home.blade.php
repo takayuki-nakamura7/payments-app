@@ -27,9 +27,25 @@
                                     <option value="<=">以下</option>
                                 </select>
                             </div>
+
+                            <div class="form-check mb-3">
+                                <input
+                                        class="form-check-input"
+                                        name="self_issued_payments"
+                                        type="checkbox"
+                                        value="1"
+                                        id="selfIssuedPaymentsCheckbox"
+                                        @if(intval(old('self_issued_payments', 0)) === 1) checked @endif
+                                >
+                                <label class="form-check-label" for="selfIssuedPaymentsCheckbox">
+                                    自分が発行した伝票のみ表示する
+                                </label>
+                            </div>
+
                             <button class="btn btn-primary">検索</button>
                         </form>
                     </div>
+                    what am I {{ dump(\Auth::user()->id )}}
                 </div>
             </div>
         </div>
