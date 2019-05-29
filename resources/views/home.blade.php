@@ -45,7 +45,16 @@
                             <button class="btn btn-primary">検索</button>
                         </form>
                     </div>
-                    what am I {{ dump(\Auth::user()->id )}}
+                    <br>
+                    <div class="card-header">領収書を発行</div>
+                    <div class="card-body">
+                        <form action="{{ route('createIssue') }}" method="post">
+                            {{ csrf_token() }}
+                            <label>名前</label>
+                            <input type="text" name="customer">
+                            <button class="btn btn-primary">作成</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

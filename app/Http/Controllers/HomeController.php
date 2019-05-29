@@ -77,4 +77,12 @@ class HomeController extends Controller
             return redirect('/test');
         }
 
+        public function create(Request $request) {
+
+            $customer = $request->input('customer');
+            $data = array('customer'=>$customer);
+            DB::table('payments')->insert($data);
+
+            echo 'success';
+        }
 }
