@@ -16,34 +16,14 @@ Route::get('/', function () {
 });
 
 
+Route::auth();
 
-Auth::routes();
-
-Route::get('home', function () {
-    return view('home');
-});
-Route::get('/test', 'HomeController@index')->name('test');
-Route::get('/home/{id}', 'HomeController@show')->name('bill');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/{id}', 'HomeController@show')->name('detail');
 Route::delete('/home/{id}', 'HomeController@destroy')->name('delete');
 
-Route::post('/test', 'HomeController@create')->name('createIssue');
+Route::get('users', 'UserController@index');
+Route::delete('users/{id}', 'UserController@destroy');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Route::get('shops', 'UserController@index');
+Route::delete('shops/{id}', 'UserController@destroy');
