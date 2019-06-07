@@ -3,6 +3,9 @@ namespace App\Http\Controllers;
 
 use App\Payment;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Shop;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +26,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $payments = Payment::query();
+        $shops = Shop::all();
 
         // 名前でフィルタリング
         $name = $request->get('customer');
@@ -52,7 +56,7 @@ class HomeController extends Controller
         // 今回のリクエストデータをセッションに保存
         $request->flash();
 
-        return view('home')->with('payments', $payments->get());
+        return view('home')->with(['payments' => $payments->get(), 'shops' => $shops]);
     }
     /**
      * 特定のIDの支払い情報を表示する
@@ -80,6 +84,31 @@ class HomeController extends Controller
         $payment->delete();
 
         \Session::flash('status', $order_no . 'を削除しました。');
+
+        return redirect()->back();
+    }
+
+    public function create(Request $request)
+    {
+        //  必須項目をバリデーションする
+        $request->validate([
+           'customer' => 'required',
+           'order_no' => 'required',
+           'price' => 'required',
+        ]);
+
+
+
+        $payment= new Payment();
+        $payment->customer= $request['customer'];
+        $payment->order_no= substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz'), 0, 8);;
+        $payment->price= $request['price'];
+        $payment->note= $request['note'];
+        $payment->method= $request['method'];;
+        $payment->issue_date= Carbon::now();
+        $payment->user_id= \Auth::user()->id; // user_idを指定することでそれに紐付いているuserにアクセスできる。detail.bladeで$payment->user->nameでidにひも付いているnameがゲットできる。
+        $payment->shop_id= $request['shop_id']; // 上と同じ
+        $payment->save();
 
         return redirect()->back();
     }

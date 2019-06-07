@@ -15,37 +15,36 @@
                         @endif
                         <table>
                             <tr>
-                                <td clsss="col-4">Order number</td>
+                                <td clsss="col-4">伝票番号</td>
                                 <td class="col-8 text-right">{{ $payment->order_no }}</td>
-
                             </tr>
                             <tr>
-                                <td clsss="col-4">customer name</td>
+                                <td clsss="col-4">購入者名</td>
                                 <td class="col-8 text-right">{{ $payment->customer }}</td>
 
                             </tr>
                             <tr>
-                                <td clsss="col-4">Price</td>
+                                <td clsss="col-4">値段</td>
                                 <td class="col-4 text-right">&yen;{{ $payment->price }}</td>
                             </tr>
                             <tr>
-                                <td clsss="col-4">Issue date</td>
+                                <td clsss="col-4">発行日</td>
                                 <td class="col-8 text-right">{{ $payment->issue_date }}</td>
                             </tr>
                             <tr>
-                                <td clsss="col-4">Payment method</td>
+                                <td clsss="col-4">支払い方法</td>
                                 <td class="col-8 text-right">{{ $payment->method }}</td>
                             </tr>
                             <tr>
-                                <th clsss="col-4">Hakkoushya</th>
+                                <th clsss="col-4">発行者</th>
                                 <td class="col-8 text-right">{{ $payment->user->name }}</td>
                             </tr>
                             <tr>
-                                <th clsss="col-4">Taisyou Tenpo</th>
+                                <th clsss="col-4">対象店舗</th>
                                 <td class="col-8 text-right">{{ $payment->shop->name }}</td>
                             </tr>
                             <tr>
-                                <td clsss="col-4">note</td>
+                                <td clsss="col-4">備考</td>
                                 <td class="col-8 text-right">{{ $payment->note }}</td>
                             </tr>
                         </table>
