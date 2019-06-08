@@ -77,13 +77,6 @@
                                 @endif
                             </div>
                             <div class="form-group mb-3">
-                                <label for="orderNoInput">伝票番号</label>
-                                <input type="text" class="form-control" id="orderNoInput" name="order_no" value="{{ old('order_no') }}">
-                                @if ($errors->has('customer'))
-                                    <small class="form-text invalid-feedback">{{ $errors->first('order_no') }}</small>
-                                @endif
-                            </div>
-                            <div class="form-group mb-3">
                                 <label for="priceInput">金額</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -154,7 +147,9 @@
                                     <td>&yen;{{ $payment->price }}</td>
                                     <td>{{ $payment->user->name }}</td>
                                     <td>
-
+                                        <form action="{{ route('edit', ['id' => $payment->id]) }}" method="get">
+                                            <button class="btn btn-primary">編集</button>
+                                        </form>
                                         <form action="{{ route('delete', ['id' => $payment->id]) }}" method="post">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="_method" value="delete">
