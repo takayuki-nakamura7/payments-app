@@ -22,15 +22,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/{id}', 'HomeController@show')->name('detail');
 Route::delete('/home/{id}', 'HomeController@destroy')->name('delete');
 Route::post('/home', 'HomeController@create')->name('create');
+Route::get('/home/edit/{id}', 'HomeController@edit')->name('edit');
+Route::post('home/update/{id}', 'HomeController@update')->name('update');
 
 
 
 
-//Route::get('test', 'test@index');
+
+
 
 
 //Route::get('users', 'UserController@index');
-Route::get('users', [ 'as' => 'users.index', 'uses' => 'UserController@index']);
+//Route::get('users', [ 'as' => 'users.index', 'uses' => 'UserController@index']);
 
 //Route::delete('users/{id}', 'UserController@destroy');
 //Route::delete('users/{id}', [ 'as' => 'users.index', 'uses' => 'UserController@destroy']);

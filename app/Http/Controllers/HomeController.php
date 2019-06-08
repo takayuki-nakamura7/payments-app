@@ -93,7 +93,6 @@ class HomeController extends Controller
         //  必須項目をバリデーションする
         $request->validate([
            'customer' => 'required',
-           'order_no' => 'required',
            'price' => 'required',
         ]);
 
@@ -112,4 +111,27 @@ class HomeController extends Controller
 
         return redirect()->back();
     }
+
+    public function edit($id)
+    {
+        $payment = Payment::find($id);
+        $shops = Shop::all();
+
+        return view('edit')->with(['payment' => $payment, 'shops' => $shops]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $payment= Payment::find($id);
+        $payment->customer= $request['customer'];
+        $payment->order_no= $payment->order_no;
+        $payment->price= $request['price'];
+        $payment->note= $request['note'];
+        $payment->method= $request['method'];
+        $payment->user_id= \Auth::user()->id; // user_idを指定することでそれに紐付いているuserにアクセスできる。detail.bladeで$payment->user->nameでidにひも付いているnameがゲットできる。
+        $payment->shop_id= $request['shop_id']; // 上と同じ
+        $payment->save();
+
+        return redirect('home')->with('status', '編集完了!');    }
+
 }
