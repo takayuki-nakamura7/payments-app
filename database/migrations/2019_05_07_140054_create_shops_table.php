@@ -19,7 +19,7 @@ class CreateShopsTable extends Migration
             $table->string('address1');
             $table->string('address2')->nullable();
             $table->unsignedInteger('zip_code');
-            $table->string('company_seal');
+            $table->string('company_seal')->nullable();
             $table->timestamps();
         });
     }
