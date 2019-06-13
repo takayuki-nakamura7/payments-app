@@ -108,10 +108,10 @@
                                         <form action="{{ route('shops_edit', ['id' => $shop->id]) }}" method="get">
                                             <button class="btn btn-primary">編集</button>
                                         </form>
-                                        <form action="{{ route('shops_destroy', ['id' => $shop->id]) }}" method="post">
+                                        <form action="{{ route('shops_destroy', ['id' => $shop->id]) }}" method="post" onclick='return confirm("本当に削除しますか？");'>
                                             {{ csrf_field() }}
                                             <input type="hidden" name="_method" value="delete">
-                                            <button class="btn btn-danger">削除</button>
+                                            <button class="btn btn-danger ">削除</button>
                                         </form>
                                     </td>
                                 </tr>

@@ -25,8 +25,25 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        session()->forget('customer');
+
+
+        $payments = Payment::paginate(10);
+        $shops = Shop::all();
+
+        return view('home')->with(['payments' => $payments, 'shops' => $shops]);
+    }
+
+    public function filter(Request $request)
+    {
         $payments = Payment::query();
         $shops = Shop::all();
+
+        //  フィルターに入力した情報を残すために変数に入れる
+        $filter_customer = $request->customer;
+        $filter_order_no = $request->order_no;
+        $filter_price = $request->price;
+        $filter_self_issued_payments = $request->self_issued_payments;
 
         // 名前でフィルタリング
         $name = $request->get('customer');
@@ -54,14 +71,17 @@ class HomeController extends Controller
         }
 
 
-        return view('home')->with(['payments' => $payments->get(), 'shops' => $shops]);
+        return view('filter')->with(['payments' => $payments->get(), 'shops' => $shops, 'customer' => $filter_customer, 'order_no' => $filter_order_no, 'price' => $filter_price, 'self_issued_payments' => $filter_self_issued_payments]);
     }
+
     /**
      * 特定のIDの支払い情報を表示する
      *
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+
+
     public function show($id)
     {
         $payment = Payment::find($id);
