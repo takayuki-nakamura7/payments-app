@@ -53,8 +53,6 @@ class HomeController extends Controller
             $payments->where('user_id', \Auth::user()->id);
         }
 
-        // 今回のリクエストデータをセッションに保存
-        $request->flash();
 
         return view('home')->with(['payments' => $payments->get(), 'shops' => $shops]);
     }
@@ -97,7 +95,6 @@ class HomeController extends Controller
         ]);
 
 
-
         $payment= new Payment();
         $payment->customer= $request['customer'];
         $payment->order_no= substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz'), 0, 8);;
@@ -132,6 +129,7 @@ class HomeController extends Controller
         $payment->shop_id= $request['shop_id']; // 上と同じ
         $payment->save();
 
-        return redirect('home')->with('status', '編集完了!');    }
+        return redirect('home')->with('status', '編集完了!');
+    }
 
 }
