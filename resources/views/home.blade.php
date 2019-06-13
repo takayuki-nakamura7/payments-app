@@ -10,7 +10,7 @@
                         <form action="{{ route('create') }}" method="post">
                             {{ csrf_field() }}
                             <div class="form-group mb-3">
-                                <label for="shop_name">支払い先</label>
+                                <label for="shop_name">支払い先 <a class="btn" href="{{ route('shops') }}" role="button">ショップを追加</a></label>
                                 <select class="custom-select" id="shop_name" name="shop_id">
                                     @foreach($shops as $shop)
                                         <option value={{ $shop['id'] }}> {{ $shop['name'] }} </option>
@@ -45,7 +45,8 @@
                                 <select class="custom-select" id="priceOperatorSelect" name="method">
                                     <option value="クレジットカード">クレジットカード</option>
                                     <option value="代金引換">代金引換</option>
-                                <option value="銀行振込">銀行振込</option>
+                                    <option value="銀行振込">銀行振込</option>
+                                    <option value="現金">現金</option>
                                 </select>
                                 @if ($errors->has('method'))
                                     <small class="form-text invalid-feedback">{{ $errors->first('method') }}</small>
@@ -64,7 +65,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">支払い一覧（{{ $payments->count() }}件）<a class="btn" href="{{ route('filter') }}" role="button">フィルター検索</a></div>
+                    <div class="card-header">領収書一覧（{{ $payments->count() }}件）<a class="btn" href="{{ route('filter') }}" role="button">フィルター検索</a></div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -92,10 +93,9 @@
                                             {{ $payment->order_no }}
                                         </a>
                                     </td>
+                                    <td>{{ $payment->shop->name }}</td>
                                     <td>
-                                        <a href="{{ route('detail', ['id' => $payment->id]) }}">
                                             {{ $payment->customer }}
-                                        </a>
                                     </td>
                                     <td>&yen;{{ $payment->price }}</td>
                                     <td>{{ $payment->user->name }}</td>

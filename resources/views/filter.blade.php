@@ -87,10 +87,9 @@
                                             {{ $payment->order_no }}
                                         </a>
                                     </td>
+                                    <td>{{ $payment->shop->name }}</td>
                                     <td>
-                                        <a href="{{ route('detail', ['id' => $payment->id]) }}">
                                             {{ $payment->customer }}
-                                        </a>
                                     </td>
                                     <td>&yen;{{ $payment->price }}</td>
                                     <td>{{ $payment->user->name }}</td>

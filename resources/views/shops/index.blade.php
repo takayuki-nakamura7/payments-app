@@ -16,10 +16,7 @@
                                 <label for="zipCodeInput">郵便番号</label>
                                 <input type="text" class="form-control" id="zipCodeInput" name="zip_code">
                             </div>
-                            <button class="btn btn-primary">検索</button>
-                        </form>
-                        <form action="{{ route('home') }}" method="get">
-                            <button class="btn btn-success">戻る</button>
+                            <button class="btn btn-primary">検索</button><a class="btn" href="{{ route('home') }}" role="button">ホームに戻る</a>
                         </form>
                     </div>
                 </div>
@@ -28,11 +25,8 @@
                 <div class="card">
                     <div class="card-header">新しいショップを登録</div>
                     <div class="card-body">
-                        <form action="{{ route('shops_create') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('shops_create') }}" method="post">
                             @csrf
-{{--                            <div class="form-image_url">--}}
-{{--                                <input type="file" name="image_url">--}}
-{{--                            </div>--}}
 
                             <div class="form-group mb-3">
                                 <label for="nameInput">名前</label>
@@ -88,7 +82,6 @@
                         <table class="table table-borderless">
                             <thead>
                             <tr>
-{{--                                <th>社印</th>--}}
                                 <th>ショップ名</th>
                                 <th>郵便番号</th>
                                 <th>住所</th>
@@ -98,9 +91,6 @@
                             <tbody>
                             @foreach($shops as $shop)
                                 <tr>
-{{--                                    <td>--}}
-{{--                                        <img width="50px" src="{{ $shop->company_seal }}" alt="no image">--}}
-{{--                                    </td>--}}
                                     <td>{{ $shop->name }}</td>
                                     <td>{{ $shop->zip_code }}</td>
                                     <td>{{ $shop->address1 }} {{ $shop->address2 }}</td>

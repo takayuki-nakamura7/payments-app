@@ -25,9 +25,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        session()->forget('customer');
-
-
         $payments = Payment::paginate(10);
         $shops = Shop::all();
 

@@ -12,7 +12,7 @@
                                 <label for="nameInput">名前</label>
                                 <input type="text" class="form-control" id="nameInput" name="name" value="{{ old('name') }}">
                             </div>
-                            <button class="btn btn-primary">検索</button>
+                            <button class="btn btn-primary">検索</button><a class="btn" href="{{ route('users') }}" role="button">フィルター解除</a>
                         </form>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">ユーザー一覧（{{ $users->count() }}件）</div>
+                    <div class="card-header">フィルター結果（{{ $users->count() }}件）</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -52,7 +52,6 @@
                         </table>
                     </div>
                 </div>
-                {{ $users->links() }}
             </div>
         </div>
     </div>

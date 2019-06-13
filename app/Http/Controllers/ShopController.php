@@ -23,12 +23,6 @@ class ShopController extends Controller
     {
         $shops = Shop::query();
 
-//        $contents = \Storage::get('public/post_images/2019-06-12 11:09:21_2.jpg');
-//        if ($contents) {
-//            dd($contents);
-//        }
-
-
         $name = $request->get('name');
         if (!is_null($name)) {
             $shops->where('name', 'like', "%{$name}%");
@@ -54,16 +48,6 @@ class ShopController extends Controller
             'name' => 'required',
             'zip_code' => 'required|digits:7|integer' ,
             'address1' => 'required',
-            'file' => [
-                // アップロードされたファイルであること
-                'file',
-                // 画像ファイルであること
-                'image',
-                // MIMEタイプを指定
-                'mimes:jpeg,png',
-                // 最小縦横120px 最大縦横400px
-                'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
-            ]
         ]);
 
         $shop= new Shop();
@@ -71,11 +55,10 @@ class ShopController extends Controller
         $shop->zip_code= $request['zip_code'];
         $shop->address1= $request['address1'];
         $shop->address2= $request['address2'];
-        $shop->company_seal = $request->image_url->storeAs('public/post_images', now().'_'.\Auth::user()->id . '.jpg');
         $shop->save();
 
 
-        return redirect()->back()->with('status', '写真がアップロードされました！');
+        return redirect()->back();
     }
 
     /**
