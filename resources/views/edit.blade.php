@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="row justify-content-center mb-4">
-        <div class="col-md-5">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">領収書情報を変更</div>
                 <div class="card-body">
@@ -58,6 +58,9 @@
                             <input type="text" class="form-control" id="orderNoInput" name="note" value="{{ $payment->note }}">
                         </div>
                         <button class="btn btn-primary">変更</button>
+                    </form>
+                    <form action="{{ route('home') }}" method="get">
+                        <button class="btn btn-success">戻る</button>
                     </form>
                 </div>
             </div>

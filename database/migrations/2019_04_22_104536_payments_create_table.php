@@ -20,7 +20,7 @@ class PaymentsCreateTable extends Migration
            $table->integer('price')->unsigned();
            $table->string('customer');
            $table->date('issue_date')->nullable();
-           $table->string('note');
+           $table->string('note')->nullable();
            $table->string('method');
            $table->integer('user_id')->unsigned();
            $table->integer('shop_id')->unsigned();

@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">請求書一覧 - {{ $payment->customer }}</div>
+                    <div class="card-header">請求書詳細 - {{ $payment->customer }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -13,39 +13,38 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <table>
+                        <table class="table table-borderless">
                             <tr>
-                                <td clsss="col-4">伝票番号</td>
-                                <td class="col-8 text-right">{{ $payment->order_no }}</td>
+                                <td>伝票番号</td>
+                                <td class="text-right">{{ $payment->order_no }}</td>
                             </tr>
                             <tr>
-                                <td clsss="col-4">購入者名</td>
-                                <td class="col-8 text-right">{{ $payment->customer }}</td>
+                                <td>購入者名</td>
+                                <td class="text-right">{{ $payment->customer }}</td>
 
                             </tr>
                             <tr>
-                                <td clsss="col-4">値段</td>
-                                <td class="col-4 text-right">&yen;{{ $payment->price }}</td>
+                                <td>値段</td>
+                                <td class="text-right">&yen;{{ $payment->price }}</td>
                             </tr>
                             <tr>
-                                <td clsss="col-4">発行日</td>
-                                <td class="col-8 text-right">{{ $payment->issue_date }}</td>
+                                <td>発行日</td>
+                                <td class="text-right">{{ $payment->issue_date }}</td>
+                            <tr>
+                                <td>支払い方法</td>
+                                <td class="text-right">{{ $payment->method }}</td>
                             </tr>
                             <tr>
-                                <td clsss="col-4">支払い方法</td>
-                                <td class="col-8 text-right">{{ $payment->method }}</td>
+                                <td>発行者</td>
+                                <td class="text-right">{{ $payment->user->name }}</td>
                             </tr>
                             <tr>
-                                <th clsss="col-4">発行者</th>
-                                <td class="col-8 text-right">{{ $payment->user->name }}</td>
+                                <td>対象店舗</td>
+                                <td class="text-right">{{ $payment->shop->name }}</td>
                             </tr>
                             <tr>
-                                <th clsss="col-4">対象店舗</th>
-                                <td class="col-8 text-right">{{ $payment->shop->name }}</td>
-                            </tr>
-                            <tr>
-                                <td clsss="col-4">備考</td>
-                                <td class="col-8 text-right">{{ $payment->note }}</td>
+                                <td>備考</td>
+                                <td class="text-right">{{ $payment->note }}</td>
                             </tr>
                         </table>
                     </div>

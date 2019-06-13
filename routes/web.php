@@ -23,8 +23,15 @@ Route::get('/home/{id}', 'HomeController@show')->name('detail');
 Route::delete('/home/{id}', 'HomeController@destroy')->name('delete');
 Route::post('/home', 'HomeController@create')->name('create');
 Route::get('/home/edit/{id}', 'HomeController@edit')->name('edit');
-Route::post('home/update/{id}', 'HomeController@update')->name('update');
+Route::post('/home/update/{id}', 'HomeController@update')->name('update');
 
+
+Route::get('shops', 'ShopController@index')->name('shops');
+Route::delete('shops/{id}', 'ShopController@destroy')->name('shops_destroy');
+Route::post('shops', 'ShopController@create')->name('shops_create');
+Route::get('/shops/edit/{id}', 'ShopController@edit')->name('shops_edit');
+Route::post('/shops/update/{id}', 'ShopController@update')->name('shops_update');
+Route::post('/shop/upload', 'HomeController@upload')->name('upload');
 
 
 
@@ -38,6 +45,5 @@ Route::post('home/update/{id}', 'HomeController@update')->name('update');
 //Route::delete('users/{id}', 'UserController@destroy');
 //Route::delete('users/{id}', [ 'as' => 'users.index', 'uses' => 'UserController@destroy']);
 
-//
-//Route::get('shops', 'UserController@index');
-//Route::delete('shops/{id}', 'UserController@destroy');
+
+

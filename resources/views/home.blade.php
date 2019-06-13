@@ -10,11 +10,14 @@
                         <form action="{{ route('home') }}" method="get">
                             <div class="form-group mb-3">
                                 <label for="customerInput">名前</label>
-                                <input type="text" class="form-control" id="customerInput" name="customer" value="{{ old('customer') }}">
+                                <input type="text" class="form-control" id="customerInput" name="customer">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="orderNoInput">伝票番号</label>
-                                <input type="text" class="form-control" id="orderNoInput" name="order_no" value="{{ old('order_no') }}">
+                                <input type="text" class="form-control" id="orderNoInput" name="order_no">
+                                @if ($errors->has('order_no'))
+                                    <small class="form-text invalid-feedback">{{ $errors->first('order_no') }}</small>
+                                @endif
                             </div>
                             <div class="form-group mb-3">
                                 <label for="priceInput">金額</label>
@@ -22,7 +25,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">&yen;</span>
                                     </div>
-                                    <input type="number" class="form-control" id="priceInput" name="price" placeholder="0" value="{{ old('price') }}">
+                                    <input type="number" class="form-control" id="priceInput" name="price" placeholder="0">
                                     <select class="custom-select" id="priceOperatorSelect" name="price_operator">
                                         @php $price_operator = old('price_operator', '>=') @endphp
                                         <option value="=" @if($price_operator === '=') selected @endif>と等しい</option>
@@ -83,7 +86,7 @@
                                         <span class="input-group-text">&yen;</span>
                                     </div>
                                     <input type="number" class="form-control is-invalid" id="priceInput" name="price" placeholder="0" value="{{ old('price') }}">
-                                    @if ($errors->has('customer'))
+                                    @if ($errors->has('price'))
                                         <small class="form-text invalid-feedback">{{ $errors->first('price') }}</small>
                                     @endif
                                 </div>
@@ -125,6 +128,7 @@
                             <thead>
                             <tr>
                                 <th>伝票番号</th>
+                                <th>対象店舗</th>
                                 <th>名前</th>
                                 <th>金額</th>
                                 <th>発行者</th>
