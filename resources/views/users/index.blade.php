@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">フィルター</div>
                     <div class="card-body">
-                        <form action="{{ route('users.index') }}" method="get">
+                        <form action="{{ route('users') }}" method="get">
                             <div class="form-group mb-3">
                                 <label for="nameInput">名前</label>
                                 <input type="text" class="form-control" id="nameInput" name="name" value="{{ old('name') }}">
@@ -18,6 +18,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
@@ -46,7 +47,7 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at }}</td>
 {{--                                    <td>--}}
-{{--                                        <form action="{{ route('users.destroy', ['id' => $user->id]) }}" method="post">--}}
+{{--                                        <form action="{{ route('users_destroy', ['id' => $user->id]) }}" method="post">--}}
 {{--                                            {{ csrf_field() }}--}}
 {{--                                            <input type="hidden" name="_method" value="delete">--}}
 {{--                                            <button--}}

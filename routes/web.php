@@ -33,6 +33,9 @@ Route::get('/shops/edit/{id}', 'ShopController@edit')->name('shops_edit');
 Route::post('/shops/update/{id}', 'ShopController@update')->name('shops_update');
 Route::post('/shop/upload', 'HomeController@upload')->name('upload');
 
+Route::get('users', 'UserController@index')->name('users');
+//Route::delete('users/{id}', 'UserController@destroy')->name('users_destroy');
+
 
 
 

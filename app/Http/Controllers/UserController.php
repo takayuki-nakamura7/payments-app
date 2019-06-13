@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Shop;
 use App\User;
 use Illuminate\Http\Request;
 class UserController extends Controller
@@ -19,4 +20,12 @@ class UserController extends Controller
         $request->flash();
         return view('users.index')->with('users', $users->get());
     }
+
+//    public function destroy(User $user, $id)
+//    {
+//
+//        $user::find($id)->delete();
+//        return redirect()->back();
+//    }
+
 }
