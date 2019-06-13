@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/filter', 'HomeController@filter')->name('filter');
 Route::get('/home/{id}', 'HomeController@show')->name('detail');
 Route::delete('/home/{id}', 'HomeController@destroy')->name('delete');
 Route::post('/home', 'HomeController@create')->name('create');
