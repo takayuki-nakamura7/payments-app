@@ -9,8 +9,16 @@
                 <div class="card">
                     <div class="card-header">ショップ情報を変更</div>
                     <div class="card-body">
-                        <form action="{{ route('shops_update', ['id' => $shop->id]) }}" method="post">
+                        <form action="{{ route('shops_update', ['id' => $shop->id]) }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            <div class="form-group mb-3">
+                                <label for="nameInput">社印</label>
+                                <input type="file" name="file" class="form-control col-4">
+                                <img width="50px" src="{{ $shop->company_seal }}" alt="{{ $shop->name }}" class="col-4">
+                                @if ($errors->has('file'))
+                                    <small class="form-text invalid-feedback">{{ $errors->first('file') }}</small>
+                                @endif
+                            </div>
                             <div class="form-group mb-3">
                                 <label for="nameInput">名前</label>
                                 <input type="text" class="form-control" id="nameInput" name="name" value="{{ $shop->name }}">

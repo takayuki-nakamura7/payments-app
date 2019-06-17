@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Storage;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,10 +35,29 @@ Route::post('shops', 'ShopController@create')->name('shops_create');
 Route::get('/shops/edit/{id}', 'ShopController@edit')->name('shops_edit');
 Route::get('/shops/filter', 'ShopController@filter')->name('shops_filter');
 Route::post('/shops/update/{id}', 'ShopController@update')->name('shops_update');
-Route::post('/shop/upload', 'HomeController@upload')->name('upload');
+Route::post('/shops/upload', 'HomeController@upload')->name('shops_upload');
 
 Route::get('users', 'UserController@index')->name('users');
 Route::get('users/filter', 'UserController@filter')->name('users_filter');
+
+
+
+//Route::get('file', function () {
+//    return view('fileUpload');
+//});
+//
+//Route::post('upload', function() {
+//   $path = request()->file('file')->storePublicly(
+//       'my-file',
+//       's3'
+//   );
+//   dd(Storage::disk('s3')->url($path));
+//   return back();
+//})->name('shops_upload');
+
+
+
+
 
 //Route::delete('users/{id}', 'UserController@destroy')->name('users_destroy');
 
