@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">フィルター</div>
                     <div class="card-body">
-                        <form action="{{ route('shops') }}" method="get">
+                        <form action="{{ route('shops_filter') }}" method="get">
                             <div class="form-group mb-3">
                                 <label for="nameInput">名前</label>
                                 <input type="text" class="form-control" id="nameInput" name="name">
@@ -16,7 +16,7 @@
                                 <label for="zipCodeInput">郵便番号</label>
                                 <input type="text" class="form-control" id="zipCodeInput" name="zip_code">
                             </div>
-                            <button class="btn btn-primary">検索</button><a class="btn" href="{{ route('home') }}" role="button">ホームに戻る</a>
+                            <button class="btn btn-primary">検索</button>
                         </form>
                     </div>
                 </div>

@@ -22,7 +22,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">ユーザー一覧（{{ $users->count() }}件）</div>
+                    <div class="card-header">ユーザー覧（{{ $users->count() }}件）</div>
 
                     <div class="card-body">
                         @if (session('status'))

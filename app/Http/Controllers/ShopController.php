@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Payment;
 use App\Shop;
+use App\User;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use App\Http\Controllers\Storage;
@@ -35,6 +36,18 @@ class ShopController extends Controller
 
 
         return view('shops.index')->with('shops', $shops->get());
+    }
+
+    public function filter(Request $request)
+    {
+        $shops = Shop::query();
+        $filter_name = $request->name;
+        $filter_zip_code = $request->zip_code;
+        $name = $request->get('name');
+        if (!is_null($name)) {
+            $shops->where('name', 'like', "%{$name}%");
+        }
+        return view('shops.filter')->with(['shops' => $shops->get(), 'name' => $filter_name, 'zip_code' => $filter_zip_code]);
     }
 
     /**
