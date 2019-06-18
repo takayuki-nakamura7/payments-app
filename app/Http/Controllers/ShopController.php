@@ -62,6 +62,39 @@ class ShopController extends Controller
             'zip_code' => 'required|digits:7|integer' ,
             'address1' => 'required',
         ]);
+        if ($request->file)
+        {
+            $request->validate([
+                'file' => [
+                    // アップロードされたファイルであること
+                    'file',
+                    // 画像ファイルであること
+                    'image',
+                    // MIMEタイプを指定
+                    'mimes:jpeg,png',
+                    // 最小縦横120px 最大縦横400px
+//                'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
+                ]
+            ]);
+            if ($request->file('file')->isValid([])) {
+                $path = request()->file('file')->storePublicly(
+                    'my-file',
+                    's3'
+                );
+                $url = \Illuminate\Support\Facades\Storage::disk('s3')->url($path);
+
+            } else {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
+            }
+
+            $shop= new Shop();
+            $shop->company_seal = $url;
+        }
+
+
 
         $shop= new Shop();
         $shop->name= $request['name'];
@@ -96,30 +129,18 @@ class ShopController extends Controller
         //
     }
 
-//    public function upload(Request $request)
-//    {
-//        $this->validate($request, [
-//            'file' => [
-//                // 必須
-//                'required',
-//                // アップロードされたファイルであること
-//                'file',
-//                // 画像ファイルであること
-//                'image',
-//                // MIMEタイプを指定
-//                'mimes:jpeg,png',
-//                // 最小縦横120px 最大縦横400px
-//                'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
-//            ]
-//        ]);
-//
+    public function upload(Request $request)
+    {
+
+
 //        if ($request->file('file')->isValid([])) {
-//            $filename = $request->file->store('public/image');
-//
-//            $user = User::find(auth()->id());
-//            $user->avatar_filename = basename($filename);
-//            $user->save();
-//
+//            $path = request()->file('file')->storePublicly(
+//                'my-file',
+//                's3'
+//            );
+//            $url = \Illuminate\Support\Facades\Storage::disk('s3')->url($path);
+//            $shop= new Shop();
+//            $shop->company_seal = $url;
 //            return redirect('/shops')->with('success', '保存しました。');
 //        } else {
 //            return redirect()
@@ -127,7 +148,7 @@ class ShopController extends Controller
 //                ->withInput()
 //                ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
 //        }
-//    }
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -145,11 +166,43 @@ class ShopController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'zip_code' => 'required|digits:7|integer' ,
+            'address1' => 'required',
+            'file' => [
+                // アップロードされたファイルであること
+                'file',
+                // 画像ファイルであること
+                'image',
+                // MIMEタイプを指定
+                'mimes:jpeg,png',
+                // 最小縦横120px 最大縦横400px
+//                'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
+            ]
+        ]);
+
+        if ($request->file('file')->isValid([])) {
+            $path = request()->file('file')->storePublicly(
+                'my-file',
+                's3'
+            );
+            $url = \Illuminate\Support\Facades\Storage::disk('s3')->url($path);
+
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
+        }
+
+
         $shop= Shop::find($id);
         $shop->name= $request['name'];
         $shop->zip_code= $request['zip_code'];
         $shop->address1= $request['address1'];
         $shop->address2= $request['address2'];
+        $shop->company_seal = $url;
         $shop->save();
 
         return redirect('shops')->with('status', '編集完了!');

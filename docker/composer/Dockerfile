@@ -1,6 +1,6 @@
 FROM php:7.2
 
-MAINTAINER "Yuto Kawamoto" <y.kawamoto@go-hd.jp>
+MAINTAINER "Takayuki Nakamrua" <ktkr7195@gmail.com>
 
 WORKDIR /tmp
 
