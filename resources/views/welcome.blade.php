@@ -83,6 +83,25 @@
                 <div class="title m-b-md">
                     領収書発行アプリ
                 </div>
+
+                @guest
+                    <div class="pt-5">
+                        <form method='POST' action="{{ route('login') }}">
+                            @csrf
+                            <input id="email" type="hidden" class="form-control" name="email" value="test@gmail.com" required autofocus>
+                            <input id="password" type="hidden" class="form-control" name="password" value="password" required>
+                            <button class="btn-success">テストユーザーでログイン</button>
+
+                        </form>
+                    </div>
+                    <!--通常表示時　ボタン-->
+                    <div class="col-md-10 mx-auto">
+                        <a href="{{ route('login') }}" role='button' class='btn btn-flat-border'> ログイン</a>
+                        @if (Route::has('register'))
+                            <a  href="{{ route('register') }}" role='button' class='btn btn-flat-border'> 新規ユーザー登録</a>
+                        @endif
+                    </div>
+                @endguest
             </div>
         </div>
     </body>
