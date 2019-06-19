@@ -28,7 +28,7 @@
                         <form action="{{ route('shops_create') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group mb-3">
-                                <input type="file" name="file" class="form-control">
+                                <input type="file" name="file" class="form-control　border border-0">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="nameInput">名前</label>

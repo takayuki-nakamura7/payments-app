@@ -13,7 +13,7 @@
                             {{ csrf_field() }}
                             <div class="form-group mb-3">
                                 <label for="nameInput">社印</label>
-                                <input type="file" name="file" class="form-control col-4">
+                                <input type="file" name="file" class="form-control col-4　border border-0">
                                 <img width="50px" src="{{ $shop->company_seal }}" alt="{{ $shop->name }}" class="col-4">
                                 @if ($errors->has('file'))
                                     <small class="form-text invalid-feedback">{{ $errors->first('file') }}</small>
