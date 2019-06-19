@@ -170,30 +170,37 @@ class ShopController extends Controller
             'name' => 'required',
             'zip_code' => 'required|digits:7|integer' ,
             'address1' => 'required',
-            'file' => [
-                // アップロードされたファイルであること
-                'file',
-                // 画像ファイルであること
-                'image',
-                // MIMEタイプを指定
-                'mimes:jpeg,png',
-                // 最小縦横120px 最大縦横400px
-//                'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
-            ]
         ]);
+        if ($request->file)
+        {
+            $request->validate([
+                'file' => [
+                    // アップロードされたファイルであること
+                    'file',
+                    // 画像ファイルであること
+                    'image',
+                    // MIMEタイプを指定
+                    'mimes:jpeg,png',
+                    // 最小縦横120px 最大縦横400px
+//                'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
+                ]
+            ]);
+            if ($request->file('file')->isValid([])) {
+                $path = request()->file('file')->storePublicly(
+                    'my-file',
+                    's3'
+                );
+                $url = \Illuminate\Support\Facades\Storage::disk('s3')->url($path);
 
-        if ($request->file('file')->isValid([])) {
-            $path = request()->file('file')->storePublicly(
-                'my-file',
-                's3'
-            );
-            $url = \Illuminate\Support\Facades\Storage::disk('s3')->url($path);
+            } else {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
+            }
 
-        } else {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
+            $shop= new Shop();
+            $shop->company_seal = $url;
         }
 
 
@@ -202,7 +209,6 @@ class ShopController extends Controller
         $shop->zip_code= $request['zip_code'];
         $shop->address1= $request['address1'];
         $shop->address2= $request['address2'];
-        $shop->company_seal = $url;
         $shop->save();
 
         return redirect('shops')->with('status', '編集完了!');
