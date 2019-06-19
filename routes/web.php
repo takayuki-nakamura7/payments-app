@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home/about', function () {
+    return view('about');
+})->name('about');
+
 
 Route::auth();
 
@@ -35,10 +39,16 @@ Route::post('shops', 'ShopController@create')->name('shops_create');
 Route::get('/shops/edit/{id}', 'ShopController@edit')->name('shops_edit');
 Route::get('/shops/filter', 'ShopController@filter')->name('shops_filter');
 Route::post('/shops/update/{id}', 'ShopController@update')->name('shops_update');
-Route::post('/shops/upload', 'HomeController@upload')->name('shops_upload');
+
 
 Route::get('users', 'UserController@index')->name('users');
 Route::get('users/filter', 'UserController@filter')->name('users_filter');
+Route::get('users/paymentsList/{id}/{name}', 'UserController@show')->name('users_paymentsList');
+
+
+
+
+
 
 
 
