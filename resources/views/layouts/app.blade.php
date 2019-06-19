@@ -56,6 +56,9 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('about') }}">使い方</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('users') }}">ユーザ一覧</a>
                             </li>
                             <li class="nav-item">

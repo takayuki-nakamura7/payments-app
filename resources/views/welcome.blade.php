@@ -83,22 +83,32 @@
                 <div class="title m-b-md">
                     領収書発行アプリ
                 </div>
+                @if (Route::has('login'))
+                    @auth
+                        <div class="flex-center">
+                            <div class="links">
+                                <a href="{{ url('/home') }}">ホーム</a>
+                            </div>
+                        </div>
+                    @endauth
+                @endif
 
-                @guest
+            @guest
                     <div class="pt-5">
                         <form method='POST' action="{{ route('login') }}">
                             @csrf
                             <input id="email" type="hidden" class="form-control" name="email" value="test@gmail.com" required autofocus>
                             <input id="password" type="hidden" class="form-control" name="password" value="password" required>
-                            <button class="btn-success">テストユーザーでログイン</button>
-
+                            <button class="btn btn-primary">テストユーザーでログイン</button>
                         </form>
                     </div>
                     <!--通常表示時　ボタン-->
                     <div class="col-md-10 mx-auto">
-                        <a href="{{ route('login') }}" role='button' class='btn btn-flat-border'> ログイン</a>
+                        <div class="col">
+                            <a href="{{ route('login') }}" role='button' class='links'> ログイン</a>
+                        </div>
                         @if (Route::has('register'))
-                            <a  href="{{ route('register') }}" role='button' class='btn btn-flat-border'> 新規ユーザー登録</a>
+                            <a  href="{{ route('register') }}" role='button' class='links'> 新規ユーザー登録</a>
                         @endif
                     </div>
                 @endguest
