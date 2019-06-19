@@ -36,7 +36,7 @@ class HomeController extends Controller
         $payments = Payment::query();
         $shops = Shop::all();
 
-        //  フィルターに入力した情報を残すために変数に入れる
+        // フィルターに入力した情報を残すために変数に入れる
         $filter_customer = $request->customer;
         $filter_order_no = $request->order_no;
         $filter_price = $request->price;

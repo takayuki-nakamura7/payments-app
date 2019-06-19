@@ -82,7 +82,6 @@ class ShopController extends Controller
                     's3'
                 );
                 $url = \Illuminate\Support\Facades\Storage::disk('s3')->url($path);
-
             } else {
                 return redirect()
                     ->back()
@@ -91,10 +90,16 @@ class ShopController extends Controller
             }
 
             $shop= new Shop();
+            $shop->name= $request['name'];
+            $shop->zip_code= $request['zip_code'];
+            $shop->address1= $request['address1'];
+            $shop->address2= $request['address2'];
             $shop->company_seal = $url;
+            $shop->save();
+
+            return redirect()->back();
+
         }
-
-
 
         $shop= new Shop();
         $shop->name= $request['name'];
@@ -199,8 +204,16 @@ class ShopController extends Controller
                     ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
             }
 
-            $shop= new Shop();
+            $shop= Shop::find($id);
+            $shop->name= $request['name'];
+            $shop->zip_code= $request['zip_code'];
+            $shop->address1= $request['address1'];
+            $shop->address2= $request['address2'];
             $shop->company_seal = $url;
+            $shop->save();
+
+            return redirect('shops')->with('status', '編集完了!');
+
         }
 
 
