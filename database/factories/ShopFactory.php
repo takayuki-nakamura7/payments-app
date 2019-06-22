@@ -7,9 +7,9 @@ use Faker\Generator as Faker;
 
 $factory->define(Shop::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->company,
         'address1' => $faker->address,
-        'address2' => $faker->address,
+        'address2' => null,
         'zip_code' => $faker->numberBetween(0000000, 9999999),
         'company_seal' => $faker->imageUrl(),
     ];

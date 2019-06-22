@@ -35,7 +35,7 @@
                                             {{ $payment->order_no }}
                                         </a>
                                     </td>
-                                    <td>{{ $shops[$payment->shop_id]->name }}</td>
+                                    <td>{{ $shops[$payment->shop_id -1]->name }}</td>
                                     <td>
                                         {{ $payment->customer }}
                                     </td>

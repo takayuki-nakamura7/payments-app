@@ -43,12 +43,4 @@ class UserController extends Controller
         return view('users.paymentsList')->with(['payments'=> $payments->get(), 'name' => $user_name, 'shops' => $shops->get()]);
     }
 
-
-//    public function destroy(User $user, $id)
-//    {
-//
-//        $user::find($id)->delete();
-//        return redirect()->back();
-//    }
-
 }

@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
         $users = factory(\App\User::class, 9)->create();
 
         $me = factory(\App\User::class)->create([
-            'name' => 'Nakamura Takayuki',
-            'email' => 'ktkr3335@yahoo.co.jp',
+            'name' => 'テスト太郎',
+            'email' => 'payments.app.laravel@gmail.com',
         ]);
 
 

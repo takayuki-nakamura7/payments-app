@@ -22,20 +22,9 @@ class ShopController extends Controller
      */
     public function index(Request $request)
     {
-        $shops = Shop::query();
+        $shops = Shop::paginate(10);
 
-        $name = $request->get('name');
-        if (!is_null($name)) {
-            $shops->where('name', 'like', "%{$name}%");
-        }
-
-        $zipCode = $request->get('zip_code');
-        if (!is_null($zipCode)) {
-            $shops->where('zip_code', $zipCode);
-        }
-
-
-        return view('shops.index')->with('shops', $shops->get());
+        return view('shops.index')->with('shops', $shops);
     }
 
     public function filter(Request $request)
@@ -47,6 +36,12 @@ class ShopController extends Controller
         if (!is_null($name)) {
             $shops->where('name', 'like', "%{$name}%");
         }
+
+        $zipCode = $request->get('zip_code');
+        if (!is_null($zipCode)) {
+            $shops->where('zip_code', $zipCode);
+        }
+
         return view('shops.filter')->with(['shops' => $shops->get(), 'name' => $filter_name, 'zip_code' => $filter_zip_code]);
     }
 
@@ -64,19 +59,7 @@ class ShopController extends Controller
         ]);
         if ($request->file)
         {
-            $request->validate([
-                'file' => [
-                    // アップロードされたファイルであること
-                    'file',
-                    // 画像ファイルであること
-                    'image',
-                    // MIMEタイプを指定
-                    'mimes:jpeg,png',
-                    // 最小縦横120px 最大縦横400px
-//                'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
-                ]
-            ]);
-            if ($request->file('file')->isValid([])) {
+            if ($request->file('file')) {
                 $path = request()->file('file')->storePublicly(
                     'my-file',
                     's3'
@@ -134,27 +117,6 @@ class ShopController extends Controller
         //
     }
 
-    public function upload(Request $request)
-    {
-
-
-//        if ($request->file('file')->isValid([])) {
-//            $path = request()->file('file')->storePublicly(
-//                'my-file',
-//                's3'
-//            );
-//            $url = \Illuminate\Support\Facades\Storage::disk('s3')->url($path);
-//            $shop= new Shop();
-//            $shop->company_seal = $url;
-//            return redirect('/shops')->with('success', '保存しました。');
-//        } else {
-//            return redirect()
-//                ->back()
-//                ->withInput()
-//                ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
-//        }
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -178,19 +140,7 @@ class ShopController extends Controller
         ]);
         if ($request->file)
         {
-            $request->validate([
-                'file' => [
-                    // アップロードされたファイルであること
-                    'file',
-                    // 画像ファイルであること
-                    'image',
-                    // MIMEタイプを指定
-                    'mimes:jpeg,png',
-                    // 最小縦横120px 最大縦横400px
-//                'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
-                ]
-            ]);
-            if ($request->file('file')->isValid([])) {
+            if ($request->file('file')) {
                 $path = request()->file('file')->storePublicly(
                     'my-file',
                     's3'
