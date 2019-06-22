@@ -1,1 +1,20 @@
-This is the repository for laravel study purposes.
+# 領収書発行アプリ
+# 機能一覧
+- ログイン、ログアウト
+- パスワードリセット
+- フィルター検索
+- 領収書発行/編集/削除
+- ショップ追加/写真アップロード/編集
+- ユーザ一覧
+- 選択ユーザーが発行した領収書の一覧表示
+
+# 技術一覧
+- 言語/フレームワーク
+    - PHP/Laravel
+- デプロイ
+    - AWS/Elasticbeanstalk
+    - DB/RDS
+    - ファイルストレージ/S3
+- テスト
+    - PhPUnit
+- ページネーション
