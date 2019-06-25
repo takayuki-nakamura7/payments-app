@@ -114,7 +114,7 @@ class HomeController extends Controller
 
         $payment= new Payment();
         $payment->customer= $request['customer'];
-        $payment->order_no= substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz'), 0, 8);;
+        $payment->order_no= substr(str_shuffle('1234567890'), 0, 8);;
         $payment->price= $request['price'];
         $payment->note= $request['note'];
         $payment->method= $request['method'];;

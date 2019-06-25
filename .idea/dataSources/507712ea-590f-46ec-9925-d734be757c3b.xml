@@ -996,7 +996,6 @@
     <column id="244" parent="228" name="note">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="245" parent="228" name="method">
@@ -1065,7 +1064,6 @@
     <column id="256" parent="229" name="company_seal">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="257" parent="229" name="created_at">
