@@ -10,27 +10,23 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Illuminate\Support\Facades\Storage;
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home/about', function () {
+Route::get('/about', function () {
     return view('about');
 })->name('about');
 
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/filter', 'HomeController@filter')->name('filter');
-Route::get('/home/{id}', 'HomeController@show')->name('detail');
-Route::delete('/home/{id}', 'HomeController@destroy')->name('delete');
-Route::post('/home', 'HomeController@create')->name('create');
-Route::get('/home/edit/{id}', 'HomeController@edit')->name('edit');
-Route::post('/home/update/{id}', 'HomeController@update')->name('update');
+Route::get('/', 'HomeController@welcome')->name('welcome');
+
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/filter', 'HomeController@filter')->name('filter');
+Route::get('/detail/{id}', 'HomeController@show')->name('detail');
+Route::delete('/delete/{id}', 'HomeController@destroy')->name('delete');
+Route::post('/create', 'HomeController@create')->name('create');
+Route::get('/edit/{id}', 'HomeController@edit')->name('edit');
+Route::post('/update/{id}', 'HomeController@update')->name('update');
 
 
 Route::get('shops', 'ShopController@index')->name('shops');

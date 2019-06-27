@@ -10,11 +10,13 @@
                         <form action="{{ route('filter') }}" method="get">
                             <div class="form-group mb-3">
                                 <label for="customerInput">名前</label>
-                                <input type="text" class="form-control" id="customerInput" name="customer" value="{{ $customer }}">
+                                <input type="text" class="form-control" id="customerInput" name="customer"
+                                       value="{{ $customer }}">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="orderNoInput">伝票番号</label>
-                                <input type="text" class="form-control" id="orderNoInput" name="order_no" value="{{ $order_no }}">
+                                <input type="text" class="form-control" id="orderNoInput" name="order_no"
+                                       value="{{ $order_no }}">
                                 @if ($errors->has('order_no'))
                                     <small class="form-text invalid-feedback">{{ $errors->first('order_no') }}</small>
                                 @endif
@@ -25,7 +27,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">&yen;</span>
                                     </div>
-                                    <input type="number" class="form-control" id="priceInput" name="price" placeholder="0" value="{{ $price }}">
+                                    <input type="number" class="form-control" id="priceInput" name="price"
+                                           placeholder="0" value="{{ $price }}">
                                     <select class="custom-select" id="priceOperatorSelect" name="price_operator">
                                         @php $price_operator = old('price_operator', '>=') @endphp
                                         <option value="=" @if($price_operator === '=') selected @endif>と等しい</option>
@@ -59,7 +62,8 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">フィルター結果（{{ $payments->count() }}件）<a class="btn" href="{{ route('home') }}" role="button">フィルター解除</a></div>
+                    <div class="card-header">フィルター結果（{{ $payments->count() }}件）<a class="btn" href="{{ route('welcome') }}"
+                                                                                  role="button">フィルター解除</a></div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -89,15 +93,18 @@
                                     </td>
                                     <td>{{ $payment->shop->name }}</td>
                                     <td>
-                                            {{ $payment->customer }}
+                                        {{ $payment->customer }}
                                     </td>
                                     <td>&yen;{{ $payment->price }}</td>
                                     <td>{{ $payment->user->name }}</td>
                                     <td>
-                                        <form action="{{ route('edit', ['id' => $payment->id]) }}" method="get">
+                                        <form action="{{ route('edit', ['id' => $payment->id]) }}" method="get" style="text-align: center;">
                                             <button class="btn btn-primary">編集</button>
                                         </form>
-                                        <form action="{{ route('delete', ['id' => $payment->id]) }}" method="post" onclick="return confirm('本当に削除しますか？')">
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('delete', ['id' => $payment->id]) }}" method="post"
+                                              onclick="return confirm('本当に削除しますか？')">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="_method" value="delete">
                                             <button class="btn btn-danger btn-dell">削除</button>

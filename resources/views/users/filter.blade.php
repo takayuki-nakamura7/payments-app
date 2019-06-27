@@ -10,9 +10,11 @@
                         <form action="{{ route('users_filter') }}" method="get">
                             <div class="form-group mb-3">
                                 <label for="nameInput">名前</label>
-                                <input type="text" class="form-control" id="nameInput" name="name" value="{{ old('name') }}">
+                                <input type="text" class="form-control" id="nameInput" name="name"
+                                       value="{{ old('name') }}">
                             </div>
-                            <button class="btn btn-primary">検索</button><a class="btn" href="{{ route('users') }}" role="button">フィルター解除</a>
+                            <button class="btn btn-primary">検索</button>
+                            <a class="btn" href="{{ route('users') }}" role="button">フィルター解除</a>
                         </form>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Payment;
@@ -16,20 +17,30 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
+
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+
+    public function welcome()
     {
         $payments = Payment::paginate(10);
         $shops = Shop::all();
 
-        return view('home')->with(['payments' => $payments, 'shops' => $shops]);
+        return view('welcome')->with(['payments' => $payments, 'shops' => $shops]);
     }
+
+//    public function index()
+//    {
+//        $payments = Payment::paginate(10);
+//        $shops = Shop::all();
+//
+//        return view('home')->with(['payments' => $payments, 'shops' => $shops]);
+//    }
 
     public function filter(Request $request)
     {
@@ -85,6 +96,7 @@ class HomeController extends Controller
 
         return view('detail')->with('payment', $payment);
     }
+
     /**
      * 特定のIDの支払い情報を削除する
      *
@@ -107,20 +119,20 @@ class HomeController extends Controller
     {
         //  必須項目をバリデーションする
         $request->validate([
-           'customer' => 'required',
-           'price' => 'required',
+            'customer' => 'required',
+            'price' => 'required',
         ]);
 
 
-        $payment= new Payment();
-        $payment->customer= $request['customer'];
-        $payment->order_no= substr(str_shuffle('1234567890'), 0, 8);;
-        $payment->price= $request['price'];
-        $payment->note= $request['note'];
-        $payment->method= $request['method'];;
-        $payment->issue_date= Carbon::now();
-        $payment->user_id= \Auth::user()->id; // user_idを指定することでそれに紐付いているuserにアクセスできる。detail.bladeで$payment->user->nameでidにひも付いているnameがゲットできる。
-        $payment->shop_id= $request['shop_id']; // 上と同じ
+        $payment = new Payment();
+        $payment->customer = $request['customer'];
+        $payment->order_no = substr(str_shuffle('1234567890'), 0, 8);;
+        $payment->price = $request['price'];
+        $payment->note = $request['note'];
+        $payment->method = $request['method'];;
+        $payment->issue_date = Carbon::now();
+        $payment->user_id = \Auth::user()->id; // user_idを指定することでそれに紐付いているuserにアクセスできる。detail.bladeで$payment->user->nameでidにひも付いているnameがゲットできる。
+        $payment->shop_id = $request['shop_id']; // 上と同じ
         $payment->save();
 
         return redirect()->back();
@@ -136,17 +148,17 @@ class HomeController extends Controller
 
     public function update(Request $request, $id)
     {
-        $payment= Payment::find($id);
-        $payment->customer= $request['customer'];
-        $payment->order_no= $payment->order_no;
-        $payment->price= $request['price'];
-        $payment->note= $request['note'];
-        $payment->method= $request['method'];
-        $payment->user_id= \Auth::user()->id; // user_idを指定することでそれに紐付いているuserにアクセスできる。detail.bladeで$payment->user->nameでidにひも付いているnameがゲットできる。
-        $payment->shop_id= $request['shop_id']; // 上と同じ
+        $payment = Payment::find($id);
+        $payment->customer = $request['customer'];
+        $payment->order_no = $payment->order_no;
+        $payment->price = $request['price'];
+        $payment->note = $request['note'];
+        $payment->method = $request['method'];
+        $payment->user_id = \Auth::user()->id; // user_idを指定することでそれに紐付いているuserにアクセスできる。detail.bladeで$payment->user->nameでidにひも付いているnameがゲットできる。
+        $payment->shop_id = $request['shop_id']; // 上と同じ
         $payment->save();
 
-        return redirect('home')->with('status', '編集完了!');
+        return redirect('welcome')->with('status', '編集完了!');
     }
 
 }

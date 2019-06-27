@@ -10,7 +10,8 @@
                         <form action="{{ route('users_filter') }}" method="get">
                             <div class="form-group mb-3">
                                 <label for="nameInput">名前</label>
-                                <input type="text" class="form-control" id="nameInput" name="name" value="{{ old('name') }}">
+                                <input type="text" class="form-control" id="nameInput" name="name"
+                                       value="{{ old('name') }}">
                             </div>
                             <button class="btn btn-primary">検索</button>
                         </form>
@@ -43,7 +44,9 @@
                             <tbody>
                             @foreach($users as $user)
                                 <tr>
-                                    <td><a href="{{ route('users_paymentsList',[$user->id,$user->name]) }}">{{ $user->name }}</a></td>
+                                    <td>
+                                        <a href="{{ route('users_paymentsList',[$user->id,$user->name]) }}">{{ $user->name }}</a>
+                                    </td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at }}</td>
                                 </tr>

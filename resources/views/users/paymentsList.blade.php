@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">{{ $name }}  が発行した領収書          ({{ $payments->count() }}件)</div>
+                    <div class="card-header">{{ $name }} が発行した領収書 ({{ $payments->count() }}件)</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -45,7 +45,8 @@
                                         <form action="{{ route('edit', ['id' => $payment->id]) }}" method="get">
                                             <button class="btn btn-primary">編集</button>
                                         </form>
-                                        <form action="{{ route('delete', ['id' => $payment->id]) }}" method="post" onclick="return confirm('本当に削除しますか？')">
+                                        <form action="{{ route('delete', ['id' => $payment->id]) }}" method="post"
+                                              onclick="return confirm('本当に削除しますか？')">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="_method" value="delete">
                                             <button class="btn btn-danger btn-dell">削除</button>

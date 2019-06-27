@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Payment;
 use App\Shop;
-use App\User;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 use App\Http\Controllers\Storage;
-
-
 
 
 class ShopController extends Controller
@@ -17,10 +12,10 @@ class ShopController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $shops = Shop::paginate(10);
 
@@ -54,11 +49,10 @@ class ShopController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'zip_code' => 'required|digits:7|integer' ,
+            'zip_code' => 'required|digits:7|integer',
             'address1' => 'required',
         ]);
-        if ($request->file)
-        {
+        if ($request->file) {
             if ($request->file('file')) {
                 $path = request()->file('file')->storePublicly(
                     'my-file',
@@ -72,11 +66,11 @@ class ShopController extends Controller
                     ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
             }
 
-            $shop= new Shop();
-            $shop->name= $request['name'];
-            $shop->zip_code= $request['zip_code'];
-            $shop->address1= $request['address1'];
-            $shop->address2= $request['address2'];
+            $shop = new Shop();
+            $shop->name = $request['name'];
+            $shop->zip_code = $request['zip_code'];
+            $shop->address1 = $request['address1'];
+            $shop->address2 = $request['address2'];
             $shop->company_seal = $url;
             $shop->save();
 
@@ -84,11 +78,11 @@ class ShopController extends Controller
 
         }
 
-        $shop= new Shop();
-        $shop->name= $request['name'];
-        $shop->zip_code= $request['zip_code'];
-        $shop->address1= $request['address1'];
-        $shop->address2= $request['address2'];
+        $shop = new Shop();
+        $shop->name = $request['name'];
+        $shop->zip_code = $request['zip_code'];
+        $shop->address1 = $request['address1'];
+        $shop->address2 = $request['address2'];
         $shop->save();
 
 
@@ -98,7 +92,7 @@ class ShopController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -109,7 +103,7 @@ class ShopController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Shop $shop
+     * @param \App\Shop $shop
      * @return \Illuminate\Http\Response
      */
     public function show(Shop $shop)
@@ -120,7 +114,7 @@ class ShopController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Shop $shop
+     * @param \App\Shop $shop
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -135,11 +129,10 @@ class ShopController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'zip_code' => 'required|digits:7|integer' ,
+            'zip_code' => 'required|digits:7|integer',
             'address1' => 'required',
         ]);
-        if ($request->file)
-        {
+        if ($request->file) {
             if ($request->file('file')) {
                 $path = request()->file('file')->storePublicly(
                     'my-file',
@@ -154,11 +147,11 @@ class ShopController extends Controller
                     ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
             }
 
-            $shop= Shop::find($id);
-            $shop->name= $request['name'];
-            $shop->zip_code= $request['zip_code'];
-            $shop->address1= $request['address1'];
-            $shop->address2= $request['address2'];
+            $shop = Shop::find($id);
+            $shop->name = $request['name'];
+            $shop->zip_code = $request['zip_code'];
+            $shop->address1 = $request['address1'];
+            $shop->address2 = $request['address2'];
             $shop->company_seal = $url;
             $shop->save();
 
@@ -167,22 +160,20 @@ class ShopController extends Controller
         }
 
 
-        $shop= Shop::find($id);
-        $shop->name= $request['name'];
-        $shop->zip_code= $request['zip_code'];
-        $shop->address1= $request['address1'];
-        $shop->address2= $request['address2'];
+        $shop = Shop::find($id);
+        $shop->name = $request['name'];
+        $shop->zip_code = $request['zip_code'];
+        $shop->address1 = $request['address1'];
+        $shop->address2 = $request['address2'];
         $shop->save();
 
         return redirect('shops')->with('status', '編集完了!');
     }
 
 
-    public function destroy(Shop $shop, $id)
-    {
-//        dd($shop::find('1')->toArray());
-        $shop::find($id)->delete();
-//        $shop->delete();
-        return redirect()->back();
-    }
+//    public function destroy(Shop $shop, $id)
+//    {
+//        $shop::find($id)->delete();
+//        return redirect()->back();
+//    }
 }

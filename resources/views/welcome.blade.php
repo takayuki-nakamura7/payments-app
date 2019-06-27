@@ -1,100 +1,147 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>payments</title>
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            @auth
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header">新しい領収書を発行</div>
+                        <div class="card-body">
+                            <form action="{{ route('create') }}" method="post">
+                                {{ csrf_field() }}
+                                <div class="form-group mb-3">
+                                    <label for="shop_name">支払い先 <a class="btn" href="{{ route('shops') }}"
+                                                                   role="button">ショップを追加</a></label>
+                                    <select class="custom-select" id="shop_name" name="shop_id">
+                                        @foreach($shops as $shop)
+                                            <option value={{ $shop['id'] }}> {{ $shop['name'] }} </option>
+                                        @endforeach
+                                    </select>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">ホーム</a>
-                    @else
-                        <a href="{{ route('login') }}">ログイン</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">新規登録</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    領収書発行アプリ
-                </div>
-
-            @guest
-                    <div class="pt-5">
-                        <form method='POST' action="{{ route('login') }}">
-                            @csrf
-                            <input id="email" type="hidden" class="form-control" name="email" value="payments.app.laravel@gmail.com" required autofocus>
-                            <input id="password" type="hidden" class="form-control" name="password" value="password" required>
-                            <button class="btn btn-primary">テストユーザーでログイン</button>
-                        </form>
+                                    @if ($errors->has('shop_id'))
+                                        <small class="form-text invalid-feedback">{{ $errors->first('shop_id') }}</small>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="customerInput">購入者名</label>
+                                    <input type="text" class="form-control" id="customerInput" name="customer"
+                                           value="{{ old('customer') }}">
+                                    @if ($errors->has('customer'))
+                                        <small class="form-text invalid-feedback">{{ $errors->first('customer') }}</small>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="priceInput">金額</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">&yen;</span>
+                                        </div>
+                                        <input type="number" class="form-control is-invalid" id="priceInput"
+                                               name="price"
+                                               placeholder="0" value="{{ old('price') }}">
+                                        @if ($errors->has('price'))
+                                            <small class="form-text invalid-feedback">{{ $errors->first('price') }}</small>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="orderNoInput">支払い方法</label>
+                                    <select class="custom-select" id="priceOperatorSelect" name="method">
+                                        <option value="クレジットカード">クレジットカード</option>
+                                        <option value="代金引換">代金引換</option>
+                                        <option value="銀行振込">銀行振込</option>
+                                        <option value="現金">現金</option>
+                                    </select>
+                                    @if ($errors->has('method'))
+                                        <small class="form-text invalid-feedback">{{ $errors->first('method') }}</small>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="orderNoInput">備考</label>
+                                    <input type="text" class="form-control" id="orderNoInput" name="note"
+                                           value="{{ old('note') }}">
+                                </div>
+                                <button class="btn btn-primary">発行</button>
+                            </form>
+                        </div>
                     </div>
-                @endguest
+                </div>
+            @else
+                <div class="jumbotron-fluid" style="text-align: center;">
+                    <h2>領収書を発行しよう！</h2>
+                    <p class="lead" style="margin-bottom: 2rem;">ログインしていただくと領収書の作成が出来ます。</p>
+                    <form method='POST' action="{{ route('login') }}">
+                        @csrf
+                        <input id="email" type="hidden" class="form-control" name="email"
+                               value="payments.app.laravel@gmail.com" required autofocus>
+                        <input id="password" type="hidden" class="form-control" name="password"
+                               value="password" required>
+                        <button class="btn btn-primary btn-sm" style="padding: 10px;">テストユーザーとしてログイン</button>
+                    </form>
+                </div>
+            @endauth
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">領収書一覧（{{ $payments->count() }}件）<a class="btn" href="{{ route('filter') }}"
+                                                                                role="button">フィルター検索</a></div>
+
+                    <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+
+                        <table class="table table-borderless">
+                            <thead>
+                            <tr>
+                                <th>伝票番号</th>
+                                <th>対象店舗</th>
+                                <th>名前</th>
+                                <th>金額</th>
+                                <th>発行者</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($payments as $payment)
+                                <tr>
+                                    <td>
+                                        <a href="{{ route('detail', ['id' => $payment->id]) }}">
+                                            {{ $payment->order_no }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $payment->shop->name }}</td>
+                                    <td>
+                                        {{ $payment->customer }}
+                                    </td>
+                                    <td>&yen;{{ $payment->price }}</td>
+                                    <td>{{ $payment->user->name }}</td>
+                                    <td>
+                                        <form action="{{ route('edit', ['id' => $payment->id]) }}" method="get" style="text-align: center;">
+                                            <button class="btn btn-primary">編集</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('delete', ['id' => $payment->id]) }}" method="post"
+                                              onclick="return confirm('本当に削除しますか？')">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="_method" value="delete">
+                                            <button class="btn btn-danger btn-dell">削除</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{ $payments->links() }}
             </div>
         </div>
-    </body>
-</html>
+    </div>
+@endsection
+

@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Payment;
 use App\Shop;
 use App\User;
 use Illuminate\Http\Request;
+
 class UserController extends Controller
 {
     /**
@@ -11,7 +14,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $users = User::paginate(10);
 
@@ -40,7 +43,7 @@ class UserController extends Controller
             $payments->where('user_id', $user_id);
         }
 
-        return view('users.paymentsList')->with(['payments'=> $payments->get(), 'name' => $user_name, 'shops' => $shops->get()]);
+        return view('users.paymentsList')->with(['payments' => $payments->get(), 'name' => $user_name, 'shops' => $shops->get()]);
     }
 
 }
