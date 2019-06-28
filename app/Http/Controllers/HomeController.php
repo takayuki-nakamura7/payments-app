@@ -27,7 +27,7 @@ class HomeController extends Controller
 
     public function welcome()
     {
-        $payments = Payment::paginate(10);
+        $payments = Payment::orderBy('issue_date', 'desc')->paginate(10);
         $shops = Shop::all();
 
         return view('welcome')->with(['payments' => $payments, 'shops' => $shops]);

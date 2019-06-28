@@ -37,7 +37,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">&yen;</span>
                                         </div>
-                                        <input type="number" class="form-control is-invalid" id="priceInput"
+                                        <input type="text" class="form-control is-invalid" id="priceInput"
                                                name="price"
                                                placeholder="0" value="{{ old('price') }}">
                                         @if ($errors->has('price'))
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="issueDate">発行日</label>
-                                    <input type="text" class="form-control" id="issueDate" name="issue_date"
+                                    <input type="date" class="form-control" id="issueDate" name="issue_date"
                                            value="{{ old('issue_date') }}">
                                 </div>
                                 <div class="form-group mb-3">
