@@ -58,6 +58,11 @@
                                 @endif
                             </div>
                             <div class="form-group mb-3">
+                                <label for="issue_date">発行日</label>
+                                <input type="text" class="form-control" id="issue_date" name="issue_date"
+                                       value="{{ $payment->issue_date }}">
+                            </div>
+                            <div class="form-group mb-3">
                                 <label for="orderNoInput">備考</label>
                                 <input type="text" class="form-control" id="orderNoInput" name="note"
                                        value="{{ $payment->note }}">

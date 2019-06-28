@@ -19,7 +19,7 @@ class PaymentsCreateTable extends Migration
            $table->string('order_no');
            $table->integer('price')->unsigned();
            $table->string('customer');
-           $table->date('issue_date')->nullable();
+           $table->string('issue_date');
            $table->string('note')->nullable();
            $table->string('method');
            $table->integer('user_id')->unsigned();

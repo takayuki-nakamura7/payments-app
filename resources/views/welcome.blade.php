@@ -46,8 +46,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="orderNoInput">支払い方法</label>
-                                    <select class="custom-select" id="priceOperatorSelect" name="method">
+                                    <label for="method">支払い方法</label>
+                                    <select class="custom-select" id="method" name="method">
                                         <option value="クレジットカード">クレジットカード</option>
                                         <option value="代金引換">代金引換</option>
                                         <option value="銀行振込">銀行振込</option>
@@ -58,8 +58,13 @@
                                     @endif
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="orderNoInput">備考</label>
-                                    <input type="text" class="form-control" id="orderNoInput" name="note"
+                                    <label for="issueDate">発行日</label>
+                                    <input type="text" class="form-control" id="issueDate" name="issue_date"
+                                           value="{{ old('issue_date') }}">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="note">備考</label>
+                                    <input type="text" class="form-control" id="note" name="note"
                                            value="{{ old('note') }}">
                                 </div>
                                 <button class="btn btn-primary">発行</button>
@@ -102,7 +107,7 @@
                                 <th>対象店舗</th>
                                 <th>名前</th>
                                 <th>金額</th>
-                                <th>発行者</th>
+                                <th>発行日</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -119,7 +124,7 @@
                                         {{ $payment->customer }}
                                     </td>
                                     <td>&yen;{{ $payment->price }}</td>
-                                    <td>{{ $payment->user->name }}</td>
+                                    <td>{{ $payment->issue_date }}</td>
                                     <td>
                                         <form action="{{ route('edit', ['id' => $payment->id]) }}" method="get" style="text-align: center;">
                                             <button class="btn btn-primary">編集</button>

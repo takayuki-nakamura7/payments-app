@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Payment;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Shop;
 
 
@@ -121,6 +120,7 @@ class HomeController extends Controller
         $request->validate([
             'customer' => 'required',
             'price' => 'required',
+            'issue_date' => 'required',
         ]);
 
 
@@ -129,8 +129,8 @@ class HomeController extends Controller
         $payment->order_no = substr(str_shuffle('1234567890'), 0, 8);;
         $payment->price = $request['price'];
         $payment->note = $request['note'];
-        $payment->method = $request['method'];;
-        $payment->issue_date = Carbon::now();
+        $payment->method = $request['method'];
+        $payment->issue_date = $request['issue_date'];
         $payment->user_id = \Auth::user()->id; // user_idを指定することでそれに紐付いているuserにアクセスできる。detail.bladeで$payment->user->nameでidにひも付いているnameがゲットできる。
         $payment->shop_id = $request['shop_id']; // 上と同じ
         $payment->save();
@@ -154,11 +154,12 @@ class HomeController extends Controller
         $payment->price = $request['price'];
         $payment->note = $request['note'];
         $payment->method = $request['method'];
+        $payment->issue_date = $request['issue_date'];
         $payment->user_id = \Auth::user()->id; // user_idを指定することでそれに紐付いているuserにアクセスできる。detail.bladeで$payment->user->nameでidにひも付いているnameがゲットできる。
         $payment->shop_id = $request['shop_id']; // 上と同じ
         $payment->save();
 
-        return redirect('welcome')->with('status', '編集完了!');
+        return redirect('/')->with('status', '編集完了!');
     }
 
 }
