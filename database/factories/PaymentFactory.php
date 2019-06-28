@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Payment::class, function (Faker $faker) {
     return [
-        'order_no' => $faker->numberBetween($min = 00000000, $max = 99999999),
+        'order_no' => $faker->numberBetween($min = 10000000, $max = 99999999),
         'price' => $faker->numberBetween(1000, 1000000),
         'customer' => $faker->name,
         'issue_date' => $faker->date(),
