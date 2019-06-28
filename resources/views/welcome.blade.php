@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center mb-5">
             @auth
-                <div class="col-md-10">
+                <div class="col-md-10 mb-5">
                     <div class="card">
                         <div class="card-header">新しい領収書を発行</div>
                         <div class="card-body">
@@ -72,8 +72,68 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header">領収書一覧（{{ $payments->count() }}件）<a class="btn"
+                                                                                    href="{{ route('filter') }}"
+                                                                                    role="button">フィルター検索</a></div>
+
+                        <div class="card-body">
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+
+                            <table class="table table-borderless">
+                                <thead>
+                                <tr>
+                                    <th>伝票番号</th>
+                                    <th>対象店舗</th>
+                                    <th>名前</th>
+                                    <th>金額</th>
+                                    <th>発行日</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($payments as $payment)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('detail', ['id' => $payment->id]) }}">
+                                                {{ $payment->order_no }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $payment->shop->name }}</td>
+                                        <td>
+                                            {{ $payment->customer }}
+                                        </td>
+                                        <td>&yen;{{ $payment->price }}</td>
+                                        <td>{{ $payment->issue_date }}</td>
+                                        <td>
+                                            <form action="{{ route('edit', ['id' => $payment->id]) }}" method="get"
+                                                  style="text-align: center;">
+                                                <button class="btn btn-primary">編集</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('delete', ['id' => $payment->id]) }}" method="post"
+                                                  onclick="return confirm('本当に削除しますか？')">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="_method" value="delete">
+                                                <button class="btn btn-danger btn-dell">削除</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {{ $payments->links() }}
+                </div>
             @else
-                <div class="jumbotron-fluid" style="text-align: center;">
+                <div class="jumbotron-fluid mb-5" style="text-align: center;">
                     <h2>領収書を発行しよう！</h2>
                     <p class="lead" style="margin-bottom: 2rem;">ログインしていただくと領収書の作成が出来ます。</p>
                     <form method='POST' action="{{ route('login') }}">
@@ -85,68 +145,51 @@
                         <button class="btn btn-primary btn-sm" style="padding: 10px;">テストユーザーとしてログイン</button>
                     </form>
                 </div>
-            @endauth
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <div class="card">
-                    <div class="card-header">領収書一覧（{{ $payments->count() }}件）<a class="btn" href="{{ route('filter') }}"
-                                                                                role="button">フィルター検索</a></div>
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header">領収書一覧（{{ $payments->count() }}件）</div>
 
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                        <div class="card-body">
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
 
-                        <table class="table table-borderless">
-                            <thead>
-                            <tr>
-                                <th>伝票番号</th>
-                                <th>対象店舗</th>
-                                <th>名前</th>
-                                <th>金額</th>
-                                <th>発行日</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($payments as $payment)
+                            <table class="table table-borderless">
+                                <thead>
                                 <tr>
-                                    <td>
-                                        <a href="{{ route('detail', ['id' => $payment->id]) }}">
-                                            {{ $payment->order_no }}
-                                        </a>
-                                    </td>
-                                    <td>{{ $payment->shop->name }}</td>
-                                    <td>
-                                        {{ $payment->customer }}
-                                    </td>
-                                    <td>&yen;{{ $payment->price }}</td>
-                                    <td>{{ $payment->issue_date }}</td>
-                                    <td>
-                                        <form action="{{ route('edit', ['id' => $payment->id]) }}" method="get" style="text-align: center;">
-                                            <button class="btn btn-primary">編集</button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('delete', ['id' => $payment->id]) }}" method="post"
-                                              onclick="return confirm('本当に削除しますか？')">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="_method" value="delete">
-                                            <button class="btn btn-danger btn-dell">削除</button>
-                                        </form>
-                                    </td>
+                                    <th>伝票番号</th>
+                                    <th>対象店舗</th>
+                                    <th>名前</th>
+                                    <th>金額</th>
+                                    <th>発行日</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                @foreach($payments as $payment)
+                                    <tr>
+                                        <td>
+                                            {{ $payment->order_no }}
+                                        </td>
+                                        <td>{{ $payment->shop->name }}</td>
+                                        <td>
+                                            {{ $payment->customer }}
+                                        </td>
+                                        <td>&yen;{{ $payment->price }}</td>
+                                        <td>{{ $payment->issue_date }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                    {{ $payments->links() }}
                 </div>
-                {{ $payments->links() }}
-            </div>
         </div>
+        @endauth
     </div>
+
+
 @endsection
 
