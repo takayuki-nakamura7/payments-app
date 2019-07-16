@@ -22,10 +22,9 @@ class PaymentsCreateTable extends Migration
            $table->string('issue_date');
            $table->string('note')->nullable();
            $table->string('method');
-           $table->integer('user_id')->unsigned();
-           $table->integer('shop_id')->unsigned();
+           $table->integer('user_id')->nullable();
+           $table->integer('shop_id')->nullable();
            $table->timestamps();
-
         });
     }
 

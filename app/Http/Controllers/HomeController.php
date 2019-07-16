@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Payment;
 use Illuminate\Http\Request;
 use App\Shop;
+use Session;
 
 
 class HomeController extends Controller
@@ -16,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth');
+        //        $this->middleware('auth');
     }
 
     /**
@@ -30,16 +31,19 @@ class HomeController extends Controller
         $payments = Payment::orderBy('issue_date', 'desc')->paginate(10);
         $shops = Shop::all();
 
+        // $session_id = Session::getId();
+        // dump($session_id);
+
         return view('welcome')->with(['payments' => $payments, 'shops' => $shops]);
     }
 
-//    public function index()
-//    {
-//        $payments = Payment::paginate(10);
-//        $shops = Shop::all();
-//
-//        return view('home')->with(['payments' => $payments, 'shops' => $shops]);
-//    }
+    //    public function index()
+    //    {
+    //        $payments = Payment::paginate(10);
+    //        $shops = Shop::all();
+    //
+    //        return view('home')->with(['payments' => $payments, 'shops' => $shops]);
+    //    }
 
     public function filter(Request $request)
     {
@@ -161,5 +165,4 @@ class HomeController extends Controller
 
         return redirect('/')->with('status', '編集完了!');
     }
-
 }

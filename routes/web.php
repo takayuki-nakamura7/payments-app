@@ -20,7 +20,7 @@ Route::auth();
 
 Route::get('/', 'HomeController@welcome')->name('welcome');
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'ApiController@index')->name('api');
 Route::get('/filter', 'HomeController@filter')->name('filter');
 Route::get('/detail/{id}', 'HomeController@show')->name('detail');
 Route::delete('/delete/{id}', 'HomeController@destroy')->name('delete');
