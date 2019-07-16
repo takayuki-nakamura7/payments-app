@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Payment;
 use Illuminate\Http\Request;
 use App\Shop;
-use Session;
+// use Session;
 
 
 class HomeController extends Controller
