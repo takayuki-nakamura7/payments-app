@@ -41,7 +41,7 @@
                     // 選択されているvalue属性値を取り出す
 
                     var userId = $('[name=user_id]').val();
-                    console.log(userId); // 出力：ABC
+                    console.log(userId); // 出力：１
                     // 選択されている表示文字列を取り出す
                     $.ajax({
                         type: 'POST',
@@ -53,6 +53,7 @@
                     });
                 });
             </script>
+            <?php $userId = $_POST['user_id']; ?>
             <form action="{{ route('userEdit', ['id' => $userId]) }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group mb-3">
