@@ -6,7 +6,7 @@
         @auth
         <div class="col-md-10 mb-5">
             <div class="card">
-                <div class="card-header">新しい領収書を発行</div>
+                <div class="card-header">新しい領収書をhakkou</div>
                 <div class="card-body">
                     <form action="{{ route('create') }}" method="post">
                         {{ csrf_field() }}
