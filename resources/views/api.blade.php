@@ -53,7 +53,7 @@
                     });
                 });
             </script>
-            <?php $userId = $_POST['user_id']; ?>
+            <!-- <?php $userId = $_POST['user_id']; ?> -->
             <form action="{{ route('userEdit', ['id' => $userId]) }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group mb-3">

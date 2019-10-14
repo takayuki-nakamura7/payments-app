@@ -81,10 +81,11 @@
                         <thead>
                             <tr>
                                 <th>伝票番号</th>
-                                <th>対象店舗</th>
-                                <th>名前</th>
-                                <th>金額</th>
-                                <th>発行日</th>
+                                <th class="dNone">対象店舗</th>
+                                <th class="issuesListCaption">*伝票番号をクリックすると詳細が確認できます。</th>
+                                <th class="dNone">名前</th>
+                                <th class="dNone">金額</th>
+                                <th class="dNone">発行日</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -96,14 +97,14 @@
                                         {{ $payment->order_no }}
                                     </a>
                                 </td>
-                                <td>{{ $payment->shop->name }}</td>
-                                <td>
+                                <td class="dNone">{{ $payment->shop->name }}</td>
+                                <td class="dNone">
                                     {{ $payment->customer }}
                                 </td>
-                                <td>&yen;{{ $payment->price }}</td>
-                                <td>{{ $payment->issue_date }}</td>
+                                <td class="dNone">&yen;{{ $payment->price }}</td>
+                                <td class="dNone">{{ $payment->issue_date }}</td>
                                 <td>
-                                    <form action="{{ route('edit', ['id' => $payment->id]) }}" method="get" style="text-align: center;">
+                                    <form class="ta-right pr-10" action="{{ route('edit', ['id' => $payment->id]) }}" method="get">
                                         <button class="btn btn-primary">編集</button>
                                     </form>
                                 </td>
@@ -124,8 +125,8 @@
         </div>
         @else
         <div class="jumbotron-fluid mb-5" style="text-align: center;">
-            <h2>領収書を発行しよう！</h2>
-            <p class="lead" style="margin-bottom: 2rem;">ログインしていただくと領収書の作成が出来ます。</p>
+            <h1 class="lead">領収書を発行しよう！</h1>
+            <p style="margin-bottom: 2rem;">ログインしていただくと領収書の作成が出来ます。</p>
             <form method='POST' action="{{ route('login') }}">
                 @csrf
                 <input id="email" type="hidden" class="form-control" name="email" value="payments.app.laravel@gmail.com" required autofocus>
@@ -148,10 +149,10 @@
                         <thead>
                             <tr>
                                 <th>伝票番号</th>
-                                <th>対象店舗</th>
+                                <th class="dNone">対象店舗</th>
                                 <th>名前</th>
                                 <th>金額</th>
-                                <th>発行日</th>
+                                <th class="dNone">発行日</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,12 +161,12 @@
                                 <td>
                                     {{ $payment->order_no }}
                                 </td>
-                                <td>{{ $payment->shop->name }}</td>
+                                <td class="dNone">{{ $payment->shop->name }}</td>
                                 <td>
                                     {{ $payment->customer }}
                                 </td>
                                 <td>&yen;{{ $payment->price }}</td>
-                                <td>{{ $payment->issue_date }}</td>
+                                <td class="dNone">{{ $payment->issue_date }}</td>
                             </tr>
                             @endforeach
                         </tbody>
